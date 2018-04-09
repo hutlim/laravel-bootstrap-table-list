@@ -54,7 +54,7 @@ class TableList extends Model
      *
      * @return $this
      */
-    public function setModel(string $tableModel)
+    public function setModel($tableModel)
     {
         $this->setAttribute('tableModel', app()->make($tableModel));
 
@@ -68,7 +68,7 @@ class TableList extends Model
      *
      * @return $this
      */
-    public function setRequest(Request $request)
+    public function setRequest($request)
     {
         $this->setAttribute('request', $request);
 
@@ -83,7 +83,7 @@ class TableList extends Model
      * @return $this
      * @throws \ErrorException
      */
-    public function setRoutes(array $routes)
+    public function setRoutes($routes)
     {
         $this->checkRoutesValidity($routes);
         $this->setAttribute('routes', $routes);
@@ -98,7 +98,7 @@ class TableList extends Model
      *
      * @throws \ErrorException
      */
-    private function checkRoutesValidity(array $routes)
+    private function checkRoutesValidity($routes)
     {
         $requiredRouteKeys = ['index'];
         $optionalRouteKeys = ['create', 'edit', 'destroy'];
@@ -116,7 +116,7 @@ class TableList extends Model
      *
      * @throws \ErrorException
      */
-    private function checkRequiredRoutesValidity(array $routes, array $requiredRouteKeys)
+    private function checkRequiredRoutesValidity($routes, $requiredRouteKeys)
     {
         $routeKeys = array_keys($routes);
         foreach ($requiredRouteKeys as $requiredRouteKey) {
@@ -137,7 +137,7 @@ class TableList extends Model
      *
      * @throws \ErrorException
      */
-    private function checkAllowedRoutesValidity(array $routes, array $allowedRouteKeys)
+    private function checkAllowedRoutesValidity($routes, $allowedRouteKeys)
     {
         foreach ($routes as $routeKey => $route) {
             if (! in_array($routeKey, $allowedRouteKeys)) {
@@ -156,7 +156,7 @@ class TableList extends Model
      *
      * @throws \ErrorException
      */
-    private function checkRoutesStructureValidity(array $routes)
+    private function checkRoutesStructureValidity($routes)
     {
         $requiredRouteParams = ['alias', 'parameters'];
         foreach ($routes as $routeKey => $route) {
@@ -181,7 +181,7 @@ class TableList extends Model
      *
      * @return $this
      */
-    public function setRowsNumber(int $rowsNumber)
+    public function setRowsNumber($rowsNumber)
     {
         $this->setAttribute('rowsNumber', $rowsNumber);
 
@@ -209,7 +209,7 @@ class TableList extends Model
      *
      * @return $this
      */
-    public function addQueryInstructions(Closure $queryClosure)
+    public function addQueryInstructions($queryClosure)
     {
         $this->setAttribute('queryClosure', $queryClosure);
 
@@ -224,7 +224,7 @@ class TableList extends Model
      * @return TableListColumn
      * @throws ErrorException
      */
-    public function addColumn(string $attribute = null)
+    public function addColumn($attribute = null)
     {
         // we check if the model has correctly been defined
         if (! $this->tableModel instanceof Model) {
@@ -265,7 +265,7 @@ class TableList extends Model
      *
      * @return string
      */
-    public function getRoute(string $routeKey, array $params = [])
+    public function getRoute($routeKey, $params = [])
     {
         if (! isset($this->routes[$routeKey]) || empty($this->routes[$routeKey])) {
             throw new InvalidArgumentException(
@@ -345,7 +345,7 @@ class TableList extends Model
      *
      * @throws \ErrorException
      */
-    private function checkColumnAttributeExistence(TableListColumn $column)
+    private function checkColumnAttributeExistence($column)
     {
         if (
             ! is_null($column->attribute)
@@ -369,7 +369,7 @@ class TableList extends Model
      *
      * @throws \ErrorException
      */
-    private function checkColumnTitleDefinition(TableListColumn $column)
+    private function checkColumnTitleDefinition($column)
     {
         if (! $column->title) {
             // we prepare the error message
@@ -405,7 +405,7 @@ class TableList extends Model
      *
      * @return bool
      */
-    public function isRouteDefined(string $routeKey)
+    public function isRouteDefined($routeKey)
     {
         return (isset($this->routes[$routeKey]) || ! empty($this->routes[$routeKey]));
     }
@@ -459,7 +459,7 @@ class TableList extends Model
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      */
-    private function applyQueryClosure(Builder $query)
+    private function applyQueryClosure($query)
     {
         if ($closure = $this->queryClosure) {
             $closure($query);
@@ -471,7 +471,7 @@ class TableList extends Model
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      */
-    private function applySearchClauses(Builder $query)
+    private function applySearchClauses($query)
     {
         if ($searched = $this->request->search) {
             $this->searchableColumns->map(function(TableListColumn $column, int $key) use (&$query, $searched) {
@@ -492,7 +492,7 @@ class TableList extends Model
      *
      * @throws \ErrorException
      */
-    private function applySortClauses(Builder $query)
+    private function applySortClauses($query)
     {
         if (
             ($sortBy = $this->request->get('sortBy', $this->sortBy))
@@ -511,7 +511,7 @@ class TableList extends Model
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      */
-    private function paginateList(Builder $query)
+    private function paginateList($query)
     {
         $this->setAttribute('list', $query->paginate($this->rowsNumber));
         $this->list->appends([

@@ -29,7 +29,7 @@ class TableListColumn extends Model
      * @param TableList   $tableList
      * @param string|null $attribute
      */
-    public function __construct(TableList $tableList, string $attribute = null)
+    public function __construct($tableList, $attribute = null)
     {
         parent::__construct([
             'tableList'         => $tableList,
@@ -45,7 +45,7 @@ class TableListColumn extends Model
      *
      * @return TableListColumn
      */
-    public function setTitle(string $title = null)
+    public function setTitle($title = null)
     {
         $this->setAttribute('title', $title);
 
@@ -60,7 +60,7 @@ class TableListColumn extends Model
      * @return $this
      * @throws ErrorException
      */
-    public function sortByDefault(string $direction = 'asc')
+    public function sortByDefault($direction = 'asc')
     {
         // we check if the method has already been called
         if ($this->tableList->sortBy || $this->tableList->sortDir) {
@@ -132,7 +132,7 @@ class TableListColumn extends Model
      *
      * @return TableListColumn
      */
-    public function setCustomTable(string $customColumnTable)
+    public function setCustomTable($customColumnTable)
     {
         $this->setAttribute('customColumnTable', $customColumnTable);
 
@@ -147,7 +147,7 @@ class TableListColumn extends Model
      *
      * @return $this|string
      */
-    public function setColumnDateFormat(string $columnDateFormat)
+    public function setColumnDateFormat($columnDateFormat)
     {
         $this->setAttribute('columnDateFormat', $columnDateFormat);
 
@@ -162,7 +162,7 @@ class TableListColumn extends Model
      *
      * @return TableListColumn
      */
-    public function isButton(string $buttonClass)
+    public function isButton($buttonClass)
     {
         $this->setAttribute('buttonClass', $buttonClass);
 
@@ -177,7 +177,7 @@ class TableListColumn extends Model
      *
      * @return $this
      */
-    public function setStringLimit(int $stringLimit)
+    public function setStringLimit($stringLimit)
     {
         $this->setAttribute('stringLimit', $stringLimit);
 
@@ -192,7 +192,7 @@ class TableListColumn extends Model
      *
      * @return $this
      */
-    public function isLink(Closure $linkClosure)
+    public function isLink($linkClosure)
     {
         $this->setAttribute('linkClosure', $linkClosure);
 
@@ -207,7 +207,7 @@ class TableListColumn extends Model
      *
      * @return $this
      */
-    public function isCustomValue(Closure $customValueClosure)
+    public function isCustomValue($customValueClosure)
     {
         $this->setAttribute('customValueClosure', $customValueClosure);
 
@@ -222,7 +222,7 @@ class TableListColumn extends Model
      *
      * @return $this
      */
-    public function isCustomHtmlElement(Closure $customHtmlEltClosure)
+    public function isCustomHtmlElement($customHtmlEltClosure)
     {
         $this->setAttribute('customHtmlEltClosure', $customHtmlEltClosure);
 
